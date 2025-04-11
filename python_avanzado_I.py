@@ -243,3 +243,80 @@ persona.info()
 empleado = Employee("Carlos Méndez", "1985-11-23", "87654321", 50000, "Gerente")
 print("\n----- Información del empleado -----")
 empleado.info()
+
+# Introspección de código en Python
+print(type(5))           # <class 'int'>
+print(type("Hola"))      # <class 'str'>
+
+x = 42
+print(id(x))  # Ej: 140737488351312
+
+print(dir("Python"))
+class Persona:
+    nombre = "Juan"
+
+p = Persona()
+print(hasattr(p, 'nombre'))  # True
+
+print(getattr(p, 'nombre'))  # Juan
+
+def saludar():
+    print("Hola")
+print(callable(saludar))  # True
+
+print(isinstance(p, Persona))  # True
+
+# Métodos más comunes
+class Libro:
+    def __init__(self, titulo, paginas):
+        self.titulo = titulo
+        self.paginas = paginas
+
+    def __str__(self):
+        return f"Libro: {self.titulo} ({self.paginas} páginas)"
+
+    def __len__(self):
+        return self.paginas
+
+    def __add__(self, otro_libro):
+        return self.paginas + otro_libro.paginas
+
+# Crear objetos
+libro1 = Libro("Python Fácil", 300)
+libro2 = Libro("POO en Profundidad", 200)
+
+print(libro1)             # __str__: Libro: Python Fácil (300 páginas)
+print(len(libro1))        # __len__: 300
+print(libro1 + libro2)    # __add__: 500
+
+# Herencias multiples
+# Clase 1
+class Estudiante:
+    def __init__(self, nombre, materia):
+        self.nombre = nombre
+        self.materia = materia
+
+    def mostrar_estudiante(self):
+        print(f"Estudiante: {self.nombre}, Materia: {self.materia}")
+
+# Clase 2
+class Atleta:
+    def __init__(self, deporte):
+        self.deporte = deporte
+
+    def mostrar_deporte(self):
+        print(f"Deporte: {self.deporte}")
+
+# Clase hija que hereda de Estudiante y Atleta
+class EstudianteDeportivo(Estudiante, Atleta):
+    def __init__(self, nombre, materia, deporte):
+        # Llamamos a los constructores de ambas clases padre
+        Estudiante.__init__(self, nombre, materia)
+        Atleta.__init__(self, deporte)
+
+    def mostrar_todo(self):
+        self.mostrar_estudiante()
+        self.mostrar_deporte()
+
+persona = EstudianteDeportivo("Lucía", "Matemática", "Natación")
+persona.mostrar_todo()
