@@ -320,3 +320,43 @@ class EstudianteDeportivo(Estudiante, Atleta):
 
 persona = EstudianteDeportivo("Lucía", "Matemática", "Natación")
 persona.mostrar_todo()
+
+# Herencia Multiple - C3 linealization
+class D:
+    def mostrar(self):
+        print("Método de D")
+
+class B(D):
+    def mostrar(self):
+        print("Método de B")
+
+class C(D):
+    def mostrar(self):
+        print("Método de C")
+
+class A(B, C):
+    pass
+
+obj = A()
+obj.mostrar()
+
+# Depth First Search (DFS)
+def dfs(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(node)
+    print(node)  # acción al visitar el nodo
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+dfs(graph, 'A')
