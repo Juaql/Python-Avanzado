@@ -123,3 +123,28 @@ text = "Aquí están los números: 415-555-1234, 408-555-5678, 650-555-9999."
 matches = pattern.findall(text)
 
 print(matches) # ['415-555-1234', '408-555-5678', '650-555-9999']
+
+# Coincidencias
+robocopRegex = re.compile(r'robocop', re.IGNORECASE)
+resultado = robocopRegex.findall('RoboCop protects the innocent. ROBOCOP is strong. robOcop is cool.')
+print(resultado) # ['RoboCop', 'ROBOCOP', 'robOcop']
+
+# Sustitucion
+namesRegex = re.compile(r'Agent \w+')
+resultado = namesRegex.sub('CENSORED', 'Agent Alice gave the documents to Agent Bob.')
+print(resultado) # CENSORED gave the documents to CENSORED.
+
+agentNamesRegex = re.compile(r'Agent (\w)\w*')
+resultado = agentNamesRegex.sub(r'Agent \1***', 'Agent Alice told Agent Bob that Agent Charlie was late.')
+print(resultado) #Agent A*** told Agent B*** that Agent C*** was late.
+
+# Manejo de expresiones regulares complejas
+phoneRegex = re.compile(r'''
+    (\d{3}|\(\d{3}\))?      # código de área (opcional)
+    (\s|-|\.)?              # separador (espacio, guión o punto)
+    \d{3}                   # primeros 3 dígitos
+    (\s|-|\.)               # separador
+    \d{4}                   # últimos 4 dígitos
+    (\s*(ext|x|ext.)\s*\d{2,5})?  # extensión (opcional)
+''', re.VERBOSE)
+
